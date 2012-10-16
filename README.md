@@ -5,8 +5,8 @@ A static site compiler for grunt based on [swig templates][swig]
 
 ## Installation
 
-1. npm install grunt-swift ***OR*** add `grunt-swfit` to your `package.json
-1. Add `grunt.registerNpmTasks('grunt-swift');` to `grunt.js`
+1. npm install grunt-swig ***OR*** add `grunt-swig` to your `package.json
+1. Add `grunt.registerNpmTasks('grunt-swig');` to `grunt.js`
 
 ## Configuration
 

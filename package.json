@@ -1,15 +1,15 @@
 {
   "name": "grunt-swig",
-  "version": "0.0.1",
-  "description": "Static site compiler built around swift",
+  "version": "0.0.2",
+  "description": "Static site compiler built around swig",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rtgibbons/grunt-swift.git"
+    "url": "https://github.com/rtgibbons/grunt-swig.git"
   },
   "main": "grunt.js",
   "keywords": [
     "gruntplugin",
-    "swift",
+    "swig",
     "template"
   ],
   "author": "Ryan Gibbons <rtgibbons23@gmail.com>",
