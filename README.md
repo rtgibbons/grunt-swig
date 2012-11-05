@@ -19,7 +19,7 @@ A static site compiler for grunt based on [swig templates][swig]
         production: false,
         fb_appid: '1349v',
         ga_account_id: 'UA-xxxxxxxx-1',
-		robots_directive: 'Disallow /'
+        robots_directive: 'Disallow /'
       }
     }
 
