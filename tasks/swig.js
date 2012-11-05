@@ -13,7 +13,8 @@ module.exports = function(grunt) {
     config.file.src.forEach(function(file) {
       var tpl = swig.compileFile(file + ".swig"),
         htmlFile = config.file.dest + file + ".html",
-        tplVars, contextVars;
+        tplVars = {},
+        contextVars = {};
 
       try {
         tplVars = grunt.file.readJSON(config.data.root + file + ".json");
