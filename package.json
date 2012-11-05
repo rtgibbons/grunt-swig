@@ -1,6 +1,6 @@
 {
   "name": "grunt-swig",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Static site compiler built around swig",
   "repository": {
     "type": "git",
@@ -15,6 +15,6 @@
   "author": "Ryan Gibbons <rtgibbons23@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "swig": ">= 0.12.0"
+    "swig": "~> 0.13.2"
   }
 }
