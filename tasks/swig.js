@@ -29,5 +29,21 @@ module.exports = function(grunt) {
       grunt.log.writeln('Writing HTML to ' + htmlFile);
       grunt.file.write(htmlFile, tpl.render(grunt.utils._.extend(config.data, tplVars, contextVars)));
     });
+
+    grunt.log.writeln('Creating sitemap.xml');
+    pages = [];
+    var d = new Date; d = d.toISOString();
+    config.file.src.forEach(function(file) {
+      pages.push({
+        url: config.data.siteUrl + file + '.html',
+        date: d,
+        changefreq: 'weekly',
+        priority: '0.5'
+      });
+    });
+
+    swig.init( { root: __dirname + '/../'});
+    var sitemaptpl = swig.compileFile( 'templates/sitemap.xml.swig');
+    grunt.file.write(config.file.dest + 'sitemap.xml', sitemaptpl.render({ pages: pages}));
   });
 }

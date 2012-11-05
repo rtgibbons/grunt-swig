@@ -15,6 +15,7 @@ A static site compiler for grunt based on [swig templates][swig]
         root: "source/",
         dest: "www/",
         src: ['index', 'deals', 'locations', 'coming_soon'],
+        siteUrl: 'http://mydomain.net/',
         production: false,
         fb_appid: '1349v',
         ga_account_id: 'UA-xxxxxxxx-1'
@@ -31,10 +32,14 @@ perform the same actions above, but after process the JSON it will also expand
 the variable list with `source/index.blue.json` and provide the variable
 `context` to the rest of the swig template.
 
+The siteUrl is used to build a sitemap. Right now all the other elements are
+hard coded, eventually this could be set in the config object.
+
 *TODO* - Talk about grunt.js setup
 
 ## Changelog
 
+* 2012-11-04 - Added ability to build sitemap
 * Initial Commit - compiles templates with context
 
  [swg]: http://paularmstrong.github.com/swig/
