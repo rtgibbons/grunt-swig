@@ -18,7 +18,8 @@ A static site compiler for grunt based on [swig templates][swig]
         siteUrl: 'http://mydomain.net/',
         production: false,
         fb_appid: '1349v',
-        ga_account_id: 'UA-xxxxxxxx-1'
+        ga_account_id: 'UA-xxxxxxxx-1',
+        robots_directive: 'Disallow /'
       }
     }
 
@@ -39,6 +40,7 @@ hard coded, eventually this could be set in the config object.
 
 ## Changelog
 
+* 2012-11-04 - Added ability to build robots.txt (kengoldfarb)
 * 2012-11-04 - Added ability to build sitemap
 * Initial Commit - compiles templates with context
 

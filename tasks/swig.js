@@ -46,5 +46,8 @@ module.exports = function(grunt) {
     swig.init( { root: __dirname + '/../'});
     var sitemaptpl = swig.compileFile( 'templates/sitemap.xml.swig');
     grunt.file.write(config.file.dest + 'sitemap.xml', sitemaptpl.render({ pages: pages}));
+	
+    var robotstpl = swig.compileFile( 'templates/robots.txt.swig');
+    grunt.file.write(config.file.dest + 'robots.txt', robotstpl.render({ robots_directive: config.data.robots_directive }));
   });
 }
