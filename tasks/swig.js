@@ -13,6 +13,7 @@ module.exports = function(grunt) {
     config.file.src.forEach(function(file) {
       var tpl = swig.compileFile(file + ".swig"),
         htmlFile = config.file.dest + file + ".html",
+        globalVars = grunt.utils._.clone(config.data),
         tplVars = {},
         contextVars = {};
 
@@ -28,7 +29,7 @@ module.exports = function(grunt) {
       }
       tplVars.context = context;
       grunt.log.writeln('Writing HTML to ' + htmlFile);
-      grunt.file.write(htmlFile, tpl.render(grunt.utils._.extend(config.data, tplVars, contextVars)));
+      grunt.file.write(htmlFile, tpl.render(grunt.utils._.extend(globalVars, tplVars, contextVars)));
     });
 
     grunt.log.writeln('Creating sitemap.xml');
@@ -46,7 +47,7 @@ module.exports = function(grunt) {
     swig.init( { root: __dirname + '/../'});
     var sitemaptpl = swig.compileFile( 'templates/sitemap.xml.swig');
     grunt.file.write(config.file.dest + 'sitemap.xml', sitemaptpl.render({ pages: pages}));
-	
+
     var robotstpl = swig.compileFile( 'templates/robots.txt.swig');
     grunt.file.write(config.file.dest + 'robots.txt', robotstpl.render({ robots_directive: config.data.robots_directive }));
   });
