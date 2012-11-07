@@ -19,7 +19,12 @@ A static site compiler for grunt based on [swig templates][swig]
         production: false,
         fb_appid: '1349v',
         ga_account_id: 'UA-xxxxxxxx-1',
-        robots_directive: 'Disallow /'
+        robots_directive: 'Disallow /',
+        sitemap_priorities: {
+                '_DEFAULT_': '0.5',
+                'index': '0.8',
+                'subpage': '0.7'
+        }
       }
     }
 
@@ -36,10 +41,17 @@ the variable list with `source/index.blue.json` and provide the variable
 The siteUrl is used to build a sitemap. Right now all the other elements are
 hard coded, eventually this could be set in the config object.
 
+The 'sitemap_priorities' will set custom priorities based on the page name when 
+building the sitemap.  The first item '_DEFAULT_' will be the default priority 
+used if a page name is not explicitly set.  In the above example the page
+'index.html' would be given priority of '0.8', 'subpage.html' would be given
+a priority of '0.7', and all other pages would get a priority of '0.5'.
+
 *TODO* - Talk about grunt.js setup
 
 ## Changelog
 
+* 2012-11-04 - Added custom priorities to sitemap.xml when built (kengoldfarb)
 * 2012-11-04 - Added ability to build robots.txt (kengoldfarb)
 * 2012-11-04 - Added ability to build sitemap
 * Initial Commit - compiles templates with context
