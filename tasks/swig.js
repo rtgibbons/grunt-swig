@@ -33,14 +33,24 @@ module.exports = function(grunt) {
 
     grunt.log.writeln('Creating sitemap.xml');
     pages = [];
-    var d = new Date; d = d.toISOString();
+    var d = new Date; d = d.toISOString(),
+		defaultPriority = config.data.sitemap_priorities !== undefined && config.data.sitemap_priorities['_DEFAULT_'] !== undefined ? config.data.sitemap_priorities['_DEFAULT_'] : '0.5';
     config.file.src.forEach(function(file) {
-      pages.push({
-        url: config.data.siteUrl + file + '.html',
-        date: d,
-        changefreq: 'weekly',
-        priority: '0.5'
-      });
+		if(config.data.sitemap_priorities !== undefined && config.data.sitemap_priorities[file] !== undefined){
+			pages.push({
+				url: config.data.siteUrl + file + '.html',
+				date: d,
+				changefreq: 'weekly',
+				priority: config.data.sitemap_priorities[file]
+			  });
+		}else{
+			pages.push({
+				url: config.data.siteUrl + file + '.html',
+				date: d,
+				changefreq: 'weekly',
+				priority: defaultPriority
+			  });
+		}
     });
 
     swig.init( { root: __dirname + '/../'});
