@@ -14,9 +14,17 @@ module.exports = function(grunt) {
     config.data.src.forEach(function(file) {
       var tpl = swig.compileFile(file + ".swig"),
       htmlFile = config.data.dest + file + ".html",
-      globalVars = grunt.util._.clone(config.data),
       tplVars = {},
-      contextVars = {};
+      contextVars = {},
+      globalVars = {};
+
+      try {
+        var globalIncVars = grunt.file.readJSON(config.data.root + "global.json");
+        globalVars = grunt.util._.extend(globalVars, globalIncVars);
+      } catch (err) {
+        globalVars = grunt.util._.clone(config.data);
+      }
+
       try {
         tplVars = grunt.file.readJSON(config.data.root + file + ".json");
       } catch(err) {
@@ -39,14 +47,14 @@ module.exports = function(grunt) {
     defaultPriority = config.data.sitemap_priorities !== undefined && config.data.sitemap_priorities['_DEFAULT_'] !== undefined ? config.data.sitemap_priorities['_DEFAULT_'] : '0.5';
     
     config.data.src.forEach(function(file) {
-      if(config.data.sitemap_priorities !== undefined && config.data.sitemap_priorities[file] !== undefined){
+      if (config.data.sitemap_priorities !== undefined && config.data.sitemap_priorities[file] !== undefined) {
         pages.push({
           url: config.data.siteUrl + file + '.html',
           date: d,
           changefreq: 'weekly',
           priority: config.data.sitemap_priorities[file]
         });
-      }else{
+      } else {
         pages.push({
           url: config.data.siteUrl + file + '.html',
           date: d,
