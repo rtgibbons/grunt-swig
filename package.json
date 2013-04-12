@@ -20,5 +20,11 @@
   "license": "MIT",
   "dependencies": {
     "swig": "~> 0.13.2"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.0"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.0"
   }
 }
