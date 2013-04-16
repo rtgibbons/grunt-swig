@@ -21,7 +21,7 @@ module.exports = function(grunt) {
     config.filesSrc.forEach(function(filename) {
       var file = file_re.exec(filename)[1],
           tpl = swig.compileFile(file_re.exec(filename)[0]),
-          htmlFile = config.data.dest + file + ".html",
+          htmlFile = config.data.dest + filename + ".html",
           tplVars = {},
           contextVars = {},
           globalVars = {};
