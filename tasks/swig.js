@@ -8,7 +8,7 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('swig', 'swig templater', function(context) {
     var config = this,
         context = context || '',
-        file_re = /([\w\d_-]*)\.?[^\\\/]*$/i,
+        file_re = /(.*)\.([A-Za-z]+)/i,
         pages = [],
         d = new Date; 
         d = d.toISOString();
