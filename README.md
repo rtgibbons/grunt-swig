@@ -66,6 +66,7 @@ a priority of '0.7', and all other pages would get a priority of '0.5'.
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+* 2013-05-14 - respect the full source path
 * 2013-04-13 - [@nickpack](https://github.com/nickpack) - Refactored to work with the latest version of grunt, tidied up code and added global variable js
 * 2012-11-04 - Added custom priorities to sitemap.xml when built (kengoldfarb)
 * 2012-11-04 - Added ability to build robots.txt (kengoldfarb)
