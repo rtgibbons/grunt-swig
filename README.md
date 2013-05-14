@@ -27,7 +27,8 @@ swig: {
   development: {
     root: "source/",
     dest: "www/",
-    src: ['source/**/*.swig', 'external/sometemplate.swig'],
+    cwd: "source/",
+    src: ['**/*.swig'],
     siteUrl: 'http://mydomain.net/',
     production: false,
     fb_appid: '1349v',
@@ -56,8 +57,8 @@ the variable list with `source/index.blue.json` and provide the variable
 The siteUrl is used to build a sitemap. Right now all the other elements are
 hard coded, eventually this could be set in the config object.
 
-The 'sitemap_priorities' will set custom priorities based on the page name when 
-building the sitemap.  The first item '_DEFAULT_' will be the default priority 
+The 'sitemap_priorities' will set custom priorities based on the page name when
+building the sitemap.  The first item '_DEFAULT_' will be the default priority
 used if a page name is not explicitly set.  In the above example the page
 'index.html' would be given priority of '0.8', 'subpage.html' would be given
 a priority of '0.7', and all other pages would get a priority of '0.5'.
