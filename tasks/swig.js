@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(grunt) {
-  
+
   var fs = require('fs'),
       swig = require('swig');
 
@@ -10,17 +10,17 @@ module.exports = function(grunt) {
         context = context || '',
         file_re = /(.*)\.([A-Za-z]+)/i,
         pages = [],
-        d = new Date; 
+        d = new Date;
         d = d.toISOString();
     var defaultPriority = config.data.sitemap_priorities !== undefined && config.data.sitemap_priorities['_DEFAULT_'] !== undefined ? config.data.sitemap_priorities['_DEFAULT_'] : '0.5';
-        
+
     swig.init({
       root: config.data.root
     });
 
     config.filesSrc.forEach(function(filename) {
       var file = file_re.exec(filename)[1],
-          tpl = swig.compileFile(file_re.exec(filename)[0]),
+          tpl = swig.compileFile(filename),
           htmlFile = config.data.dest + file + ".html",
           tplVars = {},
           contextVars = {},
@@ -48,7 +48,7 @@ module.exports = function(grunt) {
       tplVars.context = context;
 
       grunt.log.writeln('Writing HTML to ' + htmlFile);
-      
+
       grunt.file.write(htmlFile, tpl.render(grunt.util._.extend(globalVars, tplVars, contextVars)));
 
       if (config.data.sitemap_priorities !== undefined && config.data.sitemap_priorities[file] !== undefined) {
@@ -76,6 +76,6 @@ module.exports = function(grunt) {
     grunt.log.writeln('Creating robots.txt');
     var robotstpl = swig.compileFile( 'templates/robots.txt.swig');
     grunt.file.write(config.data.dest + 'robots.txt', robotstpl.render({ robots_directive: config.data.robots_directive }));
-  
+
   });
 }
