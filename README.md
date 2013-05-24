@@ -29,6 +29,8 @@ swig: {
     dest: "www/",
     cwd: "source/",
     src: ['**/*.swig'],
+    generateSitemap: true,
+    generateRobotstxt: true,   
     siteUrl: 'http://mydomain.net/',
     production: false,
     fb_appid: '1349v',
