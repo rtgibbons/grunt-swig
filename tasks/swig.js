@@ -11,9 +11,12 @@ module.exports = function(grunt) {
         file_re = /(.*)\.([A-Za-z]+)/i,
         pages = [],
         d = new Date;
-        d = d.toISOString();
-    var defaultPriority = config.data.sitemap_priorities !== undefined && config.data.sitemap_priorities['_DEFAULT_'] !== undefined ? config.data.sitemap_priorities['_DEFAULT_'] : '0.5';
-
+        d = d.toISOString()
+        
+    var defaultPriority = config.data.sitemap_priorities !== undefined && config.data.sitemap_priorities['_DEFAULT_'] !== undefined ? config.data.sitemap_priorities['_DEFAULT_'] : '0.5',
+        generateSitemap = config.data.generateSitemap !== undefined ? config.data.generateSitemap : true,
+        generateRobotstxt = config.data.generateRobotstxt !== undefined ? config.data.generateRobotstxt : true;
+    
     swig.init({
       root: config.data.root
     });
@@ -68,14 +71,19 @@ module.exports = function(grunt) {
       }
     });
 
-    grunt.log.writeln('Creating sitemap.xml');
-    swig.init( { root: __dirname + '/../'});
-    var sitemaptpl = swig.compileFile( 'templates/sitemap.xml.swig');
-    grunt.file.write(config.data.dest + 'sitemap.xml', sitemaptpl.render({ pages: pages}));
 
-    grunt.log.writeln('Creating robots.txt');
-    var robotstpl = swig.compileFile( 'templates/robots.txt.swig');
-    grunt.file.write(config.data.dest + 'robots.txt', robotstpl.render({ robots_directive: config.data.robots_directive }));
+    if (generateSitemap) {
+      grunt.log.writeln('Creating sitemap.xml');
+      swig.init( { root: __dirname + '/../'});
+      var sitemaptpl = swig.compileFile( 'templates/sitemap.xml.swig');
+      grunt.file.write(config.data.dest + 'sitemap.xml', sitemaptpl.render({ pages: pages}));
+    }
+
+    if (generateRobotstxt) {
+      grunt.log.writeln('Creating robots.txt');
+      var robotstpl = swig.compileFile( 'templates/robots.txt.swig');
+      grunt.file.write(config.data.dest + 'robots.txt', robotstpl.render({ robots_directive: config.data.robots_directive }));
+    }
 
   });
 }

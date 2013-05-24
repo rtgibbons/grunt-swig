@@ -13,6 +13,8 @@ module.exports = function (grunt) {
         cwd: 'test/fixtures/src/',
         src: ['**/*.swig'],
         siteUrl: 'http://mydomain.net/',
+        generateSitemap: false,
+        generateRobotstxt: false,
         test: {
           var1: 'long path file',
           var2: 'short path file'
