@@ -8,7 +8,9 @@ module.exports = function (grunt) {
   grunt.initConfig({
     swig: {
       development: {
-        root: 'test/fixtures/src/',
+        init: {
+          root: 'test/fixtures/src/'
+        },
         dest: 'test/dest/',
         cwd: 'test/fixtures/src/',
         src: ['**/*.swig'],

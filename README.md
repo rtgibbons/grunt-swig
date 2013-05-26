@@ -25,7 +25,9 @@ In your project's Gruntfile, add a section named `swig` to the data object passe
 ```js
 swig: {
   development: {
-    root: "source/",
+    init: {
+        root: "source/"
+    },
     dest: "www/",
     cwd: "source/",
     src: ['**/*.swig'],
@@ -37,9 +39,9 @@ swig: {
     ga_account_id: 'UA-xxxxxxxx-1',
     robots_directive: 'Disallow /',
     sitemap_priorities: {
-            '_DEFAULT_': '0.5',
-            'index': '0.8',
-            'subpage': '0.7'
+        '_DEFAULT_': '0.5',
+        'index': '0.8',
+        'subpage': '0.7'
     }
   }
 }
@@ -70,6 +72,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 * 2013-05-24 - Added options to enable/disable sitemap.xml and robots.txt generation, added travis ci config.
+* 2013-05-14 - Basic test suite added by Thomas Lebeau
 * 2013-05-14 - respect the full source path
 * 2013-04-13 - [@nickpack](https://github.com/nickpack) - Refactored to work with the latest version of grunt, tidied up code and added global variable js
 * 2012-11-04 - Added custom priorities to sitemap.xml when built (kengoldfarb)

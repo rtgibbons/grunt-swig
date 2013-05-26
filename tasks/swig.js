@@ -17,9 +17,7 @@ module.exports = function(grunt) {
         generateSitemap = config.data.generateSitemap !== undefined ? config.data.generateSitemap : true,
         generateRobotstxt = config.data.generateRobotstxt !== undefined ? config.data.generateRobotstxt : true;
     
-    swig.init({
-      root: config.data.root
-    });
+    swig.init(config.data.init);
 
     config.filesSrc.forEach(function(filename) {
       var file = file_re.exec(filename)[1],
