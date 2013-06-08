@@ -1,1 +1,1 @@
-Hello {{test.var2}}
+Hello {{test.var2}}, Hello {{hello}}

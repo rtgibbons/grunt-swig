@@ -28,20 +28,20 @@ module.exports = function(grunt) {
           globalVars = {};
 
       try {
-        var globalIncVars = grunt.file.readJSON(config.data.root + "global.json");
+        var globalIncVars = grunt.file.readJSON(config.data.init.root + "global.json");
         globalVars = grunt.util._.extend(config.data, globalIncVars);
       } catch (err) {
         globalVars = grunt.util._.clone(config.data);
       }
 
       try {
-        tplVars = grunt.file.readJSON(config.data.root + file + ".json");
+        tplVars = grunt.file.readJSON(config.data.init.root + file + ".json");
       } catch(err) {
         tplVars = {};
       }
 
       try {
-        contextVars = grunt.file.readJSON(config.data.root + file + "." + context + ".json");
+        contextVars = grunt.file.readJSON(config.data.init.root + file + "." + context + ".json");
       } catch(err) {
         contextVars = {};
       }
