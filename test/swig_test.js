@@ -21,7 +21,7 @@ helpers.assertFile = function (file, reg) {
 describe('grunt-swig', function() {
 
   it('should create dest/index html', function(){
-    helpers.assertFile('test/dest/index.html', /^Hello short path file$/);
+    helpers.assertFile('test/dest/index.html', /^Hello short path file, Hello world$/);
   });
 
   it('should create dest/dest/path/to/index.html', function(){
