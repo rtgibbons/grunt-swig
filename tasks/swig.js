@@ -45,7 +45,8 @@ module.exports = function(grunt) {
       } catch(err) {
         contextVars = {};
       }
-
+      
+      tplVars.basename = file;
       tplVars.context = context;
 
       grunt.log.writeln('Writing HTML to ' + htmlFile);
