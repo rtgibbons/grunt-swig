@@ -1,4 +1,4 @@
-# grunt-swig
+# grunt-swig [![Build Status](https://travis-ci.org/rtgibbons/grunt-swig.png?branc=master)](https://travis-ci.org/rtgibbons/grunt-swig)
 
 > A static site compiler for grunt based on [swig templates](http://paularmstrong.github.com/swig/)
 
@@ -34,7 +34,7 @@ swig: {
     cwd: "source/",
     src: ['**/*.swig'],
     generateSitemap: true,
-    generateRobotstxt: true,   
+    generateRobotstxt: true,
     siteUrl: 'http://mydomain.net/',
     production: false,
     fb_appid: '1349v',
