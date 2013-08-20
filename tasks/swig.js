@@ -3,7 +3,8 @@
 module.exports = function(grunt) {
 
   var fs = require('fs'),
-      swig = require('swig');
+      swig = require('swig'),
+      resolve = require('path').resolve;
 
   grunt.registerMultiTask('swig', 'swig templater', function(context) {
     var config = this,
@@ -15,8 +16,9 @@ module.exports = function(grunt) {
         
     var defaultPriority = config.data.sitemap_priorities !== undefined && config.data.sitemap_priorities['_DEFAULT_'] !== undefined ? config.data.sitemap_priorities['_DEFAULT_'] : '0.5',
         generateSitemap = config.data.generateSitemap !== undefined ? config.data.generateSitemap : true,
-        generateRobotstxt = config.data.generateRobotstxt !== undefined ? config.data.generateRobotstxt : true;
-    
+        generateRobotstxt = config.data.generateRobotstxt !== undefined ? config.data.generateRobotstxt : true,
+        contextRoot = config.data.contextRoot !== undefined ? resolve(config.data.init.root, config.data.contextRoot) : config.data.init.root;
+
     swig.init(config.data.init);
 
     config.filesSrc.forEach(function(filename) {
@@ -28,20 +30,20 @@ module.exports = function(grunt) {
           globalVars = {};
 
       try {
-        var globalIncVars = grunt.file.readJSON(config.data.init.root + "global.json");
+        var globalIncVars = grunt.file.readJSON(resolve(contextRoot, "global.json"));
         globalVars = grunt.util._.extend(config.data, globalIncVars);
       } catch (err) {
         globalVars = grunt.util._.clone(config.data);
       }
 
       try {
-        tplVars = grunt.file.readJSON(config.data.init.root + file + ".json");
+        tplVars = grunt.file.readJSON(resolve(contextRoot, file + ".json"));
       } catch(err) {
         tplVars = {};
       }
 
       try {
-        contextVars = grunt.file.readJSON(config.data.init.root + file + "." + context + ".json");
+        contextVars = grunt.file.readJSON(resolve(contextRoot, file + "." + context + ".json"));
       } catch(err) {
         contextVars = {};
       }
