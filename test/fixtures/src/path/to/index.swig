@@ -1,1 +1,1 @@
-Hello {{test.var1}}
+[{{ tplFile.path }}, {{ tplFile.basename }}] Hello {{test.var1}}

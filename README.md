@@ -69,6 +69,9 @@ used if a page name is not explicitly set.  In the above example the page
 'index.html' would be given priority of '0.8', 'subpage.html' would be given
 a priority of '0.7', and all other pages would get a priority of '0.5'.
 
+Path and base name of the source template file are available in `tplFile` variable, `tplFile.path` for
+the path and `tplFile.basename` for the basename.
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 

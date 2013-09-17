@@ -3,7 +3,8 @@
 module.exports = function(grunt) {
 
   var fs = require('fs'),
-      swig = require('swig');
+      swig = require('swig'),
+      path = require('path');
 
   grunt.registerMultiTask('swig', 'swig templater', function(context) {
     var config = this,
@@ -45,9 +46,14 @@ module.exports = function(grunt) {
       } catch(err) {
         contextVars = {};
       }
-      
-      tplVars.basename = file;
+
       tplVars.context = context;
+
+      // add tpl infos
+      tplVars.tplFile = {
+          path: file,
+          basename: path.basename(file)
+      };
 
       grunt.log.writeln('Writing HTML to ' + htmlFile);
 

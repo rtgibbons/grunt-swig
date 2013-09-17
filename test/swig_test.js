@@ -21,11 +21,11 @@ helpers.assertFile = function (file, reg) {
 describe('grunt-swig', function() {
 
   it('should create dest/index html', function(){
-    helpers.assertFile('test/dest/index.html', /^Hello short path file, Hello world$/);
+    helpers.assertFile('test/dest/index.html', /^\[index, index\] Hello short path file, Hello world$/);
   });
 
   it('should create dest/dest/path/to/index.html', function(){
-    helpers.assertFile('test/dest/path/to/index.html', /^Hello long path file$/);
+    helpers.assertFile('test/dest/path/to/index.html', /^\[path\/to\/index, index\] Hello long path file$/);
   });
 
   it('should create dest/sitemap.xml', function(){
