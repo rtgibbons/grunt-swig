@@ -25,7 +25,7 @@ describe('grunt-swig', function() {
   });
 
   it('should create dest/dest/path/to/index.html', function(){
-    helpers.assertFile('test/dest/path/to/index.html', /^\Hello long path file$/);
+    helpers.assertFile('test/dest/path/to/index.html', /^Hello long path file$/);
   });
 
   it('should create dest/tplFile html', function(){
