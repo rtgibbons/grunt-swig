@@ -28,6 +28,14 @@ describe('grunt-swig', function() {
     helpers.assertFile('test/dest/path/to/index.html', /^Hello long path file$/);
   });
 
+  it('should create dest/tplFile html', function(){
+    helpers.assertFile('test/dest/tplFile.html', /^tplFile, tplFile$/);
+  });
+
+  it('should create dest/path/to/tplFile html', function(){
+    helpers.assertFile('test/dest/path/to/tplFile.html', /^path\/to\/tplFile, tplFile$/);
+  });
+
   it('should create dest/sitemap.xml', function(){
     helpers.assertFile('test/dest/sitemap.xml');
   });
