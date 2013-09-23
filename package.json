@@ -1,6 +1,6 @@
 {
   "name": "grunt-swig",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Static site compiler built around swig",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "swig": "~> 0.13.2"
+    "swig": "~> 1.0.0"
   },
   "scripts":{
     "test": "grunt test"
