@@ -76,6 +76,7 @@ the path and `tplFile.basename` for the basename.
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+* 2013-09-23 - Template basename and path added - Thanks [@polem](https://github.com/polem)!
 * 2013-06-08 - Fixed regression caused by init block addition preventing finding associated json payloads
 * 2013-05-26 - Added init key to grunt config to allow passing over of swig options.
 * 2013-05-24 - Added options to enable/disable sitemap.xml and robots.txt generation, added travis ci config.
