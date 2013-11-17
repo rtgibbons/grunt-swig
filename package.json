@@ -19,7 +19,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "swig": "~> 0.13.2"
+    "swig": "~> 1.1.0"
   },
   "scripts": {
     "test": "grunt test"
