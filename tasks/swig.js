@@ -11,13 +11,13 @@ module.exports = function(grunt) {
         context = tpl_context || '',
         file_re = /(.*)\.([A-Za-z]+)/i,
         pages = [],
-        date = new Date,
+        date = new Date(),
         d = date.toISOString();
-        
+
     var defaultPriority = config.data.sitemap_priorities !== undefined && config.data.sitemap_priorities['_DEFAULT_'] !== undefined ? config.data.sitemap_priorities['_DEFAULT_'] : '0.5',
         generateSitemap = config.data.generateSitemap !== undefined ? config.data.generateSitemap : true,
         generateRobotstxt = config.data.generateRobotstxt !== undefined ? config.data.generateRobotstxt : true;
-    
+
     swig.Swig(config.data.init);
 
     config.filesSrc.forEach(function(filename) {

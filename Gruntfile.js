@@ -26,6 +26,7 @@ module.exports = function (grunt) {
     },
     jshint: {
       options: {
+        'jshintrc': '.jshintrc',
         'reporter': 'jslint',
         'reporterOutput': 'jslint.xml',
         'force': true
