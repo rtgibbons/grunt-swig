@@ -26,8 +26,8 @@ module.exports = function (grunt) {
     },
     jshint: {
       options: {
-        'reporter': 'checkstyle',
-        'reporterOutput': 'checkstyle.xml',
+        'reporter': 'jslint',
+        'reporterOutput': 'jslint.xml',
         'force': true
       },
       all: [

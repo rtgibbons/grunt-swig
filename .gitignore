@@ -1,4 +1,4 @@
 node_modules
 test/dest
 tests.xml
-checkstyle.xml
+jslint.xml
