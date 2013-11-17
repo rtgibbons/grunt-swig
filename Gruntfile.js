@@ -24,6 +24,10 @@ module.exports = function (grunt) {
       }
     },
     mochaTest: {
+      options: {
+          reporter: 'xunit',
+          captureFile: 'tests.xml'
+      },
       files: ['test/*_test.js']
     },
     clean: {
