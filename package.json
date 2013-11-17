@@ -21,13 +21,14 @@
   "dependencies": {
     "swig": "~> 0.13.2"
   },
-  "scripts":{
+  "scripts": {
     "test": "grunt test"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-clean": "~0.4.1",
-    "grunt-mocha-test": "~0.7.0"
+    "grunt-mocha-test": "~0.7.0",
+    "grunt-contrib-jshint": "~0.7.2"
   },
   "peerDependencies": {
     "grunt": "~0.4.1"

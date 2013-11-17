@@ -4,6 +4,7 @@ module.exports = function (grunt) {
   grunt.loadTasks('tasks');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
   grunt.initConfig({
     swig: {
@@ -23,6 +24,17 @@ module.exports = function (grunt) {
         }
       }
     },
+    jshint: {
+      options: {
+        'reporter': 'checkstyle',
+        'reporterOutput': 'checkstyle.xml',
+        'force': true
+      },
+      all: [
+        'Gruntfile.js',
+        'tasks/*.js'
+      ]
+    },
     mochaTest: {
       options: {
           reporter: 'xunit',
@@ -38,6 +50,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'clean',
     'swig',
+    'jshint',
     'mochaTest',
   ]);
 
