@@ -8,22 +8,21 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('swig', 'swig templater', function(tpl_context) {
     var config = this,
-    context = tpl_context || '',
-    pages = [],
-    date = new Date(),
-    d = date.toISOString(),
-    defaultPriority = (config.data.sitemap_priorities !== undefined)? config.data.sitemap_priorities['_DEFAULT_'] : '0.5',
-    generateSitemap = config.data.generateSitemap || true,
-    generateRobotstxt = config.data.generateRobotstxt || true,
-    globalVars = {};
+        context = tpl_context || '',
+        pages = [],
+        date = new Date(),
+        d = date.toISOString(),
+        defaultPriority = (config.data.sitemap_priorities !== undefined)? config.data.sitemap_priorities._DEFAULT_ : '0.5',
+        generateSitemap = config.data.generateSitemap || true,
+        generateRobotstxt = config.data.generateRobotstxt || true,
+        globalVars = {};
 
     if (config.data.init !== undefined) {
       swig.setDefaults(config.data.init);
     }
 
     try {
-      var globalIncVars = grunt.file.readJSON(process.cwd() + '/global.json');
-      globalVars = grunt.util._.extend(config.data, globalIncVars);
+      globalVars = grunt.util._.extend(config.data, grunt.file.readJSON(process.cwd() + '/global.json'));
     } catch (err) {
       globalVars = grunt.util._.clone(config.data);
     }
@@ -31,6 +30,7 @@ module.exports = function(grunt) {
     this.filesSrc.forEach(function(file) {
       if (!grunt.file.exists(file)) {
         grunt.log.warn('Source file "' + file.src + '" not found.');
+
         return false;
       } else {
         var dirName = path.dirname(file).split('/'),
@@ -62,12 +62,12 @@ module.exports = function(grunt) {
 
         grunt.file.write(htmlFile, swig.renderFile(file, grunt.util._.extend(globalVars, tplVars, contextVars)));
 
-        if (config.data.sitemap_priorities !== undefined && config.data.sitemap_priorities[file] !== undefined) {
+        if (config.data.sitemap_priorities !== undefined && config.data.sitemap_priorities[destPath + '/' + outputFile + '.html'] !== undefined) {
           pages.push({
             url: config.data.siteUrl + htmlFile.replace(config.data.dest + '/', ''),
             date: d,
             changefreq: 'weekly',
-            priority: config.data.sitemap_priorities[file]
+            priority: config.data.sitemap_priorities[destPath + '/' + outputFile + '.html']
           });
         } else {
           pages.push({
