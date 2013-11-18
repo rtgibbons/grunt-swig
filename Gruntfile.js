@@ -9,6 +9,10 @@ module.exports = function (grunt) {
   grunt.initConfig({
     swig: {
       development: {
+        init: {
+          allowErrors: false,
+          autoescape: true
+        },
         dest: 'test/dest',
         src: ['**/*.swig', '!templates/*.swig'],
         siteUrl: 'http://mydomain.net/',

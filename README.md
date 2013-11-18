@@ -1,4 +1,4 @@
-# grunt-swig [![Build Status](https://travis-ci.org/rtgibbons/grunt-swig.png?branc=master)](https://travis-ci.org/rtgibbons/grunt-swig)
+# grunt-swig [![Build Status](https://travis-ci.org/rtgibbons/grunt-swig.png?branch=master)](https://travis-ci.org/rtgibbons/grunt-swig)
 
 > A static site compiler for grunt based on [swig templates](http://paularmstrong.github.com/swig/)
 
@@ -26,12 +26,9 @@ In your project's Gruntfile, add a section named `swig` to the data object passe
 swig: {
   development: {
     init: {
-        root: "source/",
-        allowErrors: false,
         autoescape: true
     },
     dest: "www/",
-    cwd: "source/",
     src: ['**/*.swig'],
     generateSitemap: true,
     generateRobotstxt: true,
@@ -42,8 +39,8 @@ swig: {
     robots_directive: 'Disallow /',
     sitemap_priorities: {
         '_DEFAULT_': '0.5',
-        'index': '0.8',
-        'subpage': '0.7'
+        'index.html': '0.8',
+        'subpage.html': '0.7'
     }
   }
 }
@@ -52,7 +49,7 @@ swig: {
 Grunt Swig will loop through files listed in `src`
 
 Ex. `source/index.swig`. It will look for a `source/index.json` and add it to
-the rest of the variables provided in `swig:development` or in `source/global.js`, and then run swig
+the rest of the variables provided in `swig:development` or in `global.js`, and then run swig
 against `source/index.swig` saving the output to `www/index.html`
 
 You can also provide context, for example `swig:development:blue` which will
@@ -67,7 +64,8 @@ The 'sitemap_priorities' will set custom priorities based on the page name when
 building the sitemap.  The first item '_DEFAULT_' will be the default priority
 used if a page name is not explicitly set.  In the above example the page
 'index.html' would be given priority of '0.8', 'subpage.html' would be given
-a priority of '0.7', and all other pages would get a priority of '0.5'.
+a priority of '0.7', and all other pages would get a priority of '0.5',
+You need to give the relative path to the output html file for this to work.
 
 Path and base name of the source template file are available in `tplFile` variable, `tplFile.path` for
 the path and `tplFile.basename` for the basename.
@@ -76,8 +74,8 @@ the path and `tplFile.basename` for the basename.
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-`ANYONE RUNNING 0.1.1 IS ADVISED TO UPGRADE TO 0.1.2 - There is an error in 0.1.1 package.json`
 
+* 2013-11-18 - (v0.2.0) Swig 1.0 support, major refactor by [@nickpack](https://github.com/nickpack)
 * 2013-09-23 - Template basename and path added - Thanks [@polem](https://github.com/polem)!
 * 2013-06-08 - Fixed regression caused by init block addition preventing finding associated json payloads
 * 2013-05-26 - Added init key to grunt config to allow passing over of swig options.
@@ -89,3 +87,5 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 * 2012-11-04 - Added ability to build robots.txt (kengoldfarb)
 * 2012-11-04 - Added ability to build sitemap
 * Initial Commit - compiles templates with context
+
+`ANYONE RUNNING 0.1.1 IS ADVISED TO UPGRADE TO 0.1.2 - There is an error in 0.1.1 package.json`
