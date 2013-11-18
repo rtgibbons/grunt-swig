@@ -1,4 +1,5 @@
 # grunt-swig [![Build Status](https://travis-ci.org/rtgibbons/grunt-swig.png?branch=master)](https://travis-ci.org/rtgibbons/grunt-swig)
+[![Coverage Status](https://coveralls.io/repos/nickpack/grunt-swig/badge.png)](https://coveralls.io/r/nickpack/grunt-swig)
 
 > A static site compiler for grunt based on [swig templates](http://paularmstrong.github.com/swig/)
 
