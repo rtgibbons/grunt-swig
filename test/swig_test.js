@@ -1,11 +1,9 @@
-/*global describe, it */
 'use strict';
 
-var assert       = require('assert');
-var fs           = require('fs');
+var assert = require('assert'),
+    fs = require('fs'),
+    helpers = module.exports;
 
-// Mocha helpers (from yeoman-generator)
-var helpers = module.exports;
 helpers.assertFile = function (file, reg) {
   var here = fs.existsSync(file);
   assert.ok(here, file + ', no such file or directory');
@@ -14,30 +12,33 @@ helpers.assertFile = function (file, reg) {
     return assert.ok(here);
   }
 
-  var body = fs.readFileSync(file, 'utf8');
-  assert.ok(reg.test(body), file + ' exists but is invalid');
+  assert.ok(reg.test(fs.readFileSync(file, 'utf8')), file + ' exists but doesn\'t contain expected values');
 };
 
 describe('grunt-swig', function() {
 
-  it('should create dest/index html', function(){
-    helpers.assertFile('test/dest/index.html', /^Hello short path file, Hello world$/);
+  it('should create dest/fixtures/index html', function(){
+    helpers.assertFile('test/dest/fixtures/index.html', /^Hello short path file, Hello world/);
   });
 
   it('should create dest/dest/path/to/index.html', function(){
-    helpers.assertFile('test/dest/path/to/index.html', /^Hello long path file$/);
+    helpers.assertFile('test/dest/fixtures/path/to/index.html', /^Hello long path file/);
   });
 
   it('should create dest/tplFile html', function(){
-    helpers.assertFile('test/dest/tplFile.html', /^tplFile, tplFile$/);
+    helpers.assertFile('test/dest/fixtures/tplFile.html', /^fixtures, tplFile/);
   });
 
   it('should create dest/path/to/tplFile html', function(){
-    helpers.assertFile('test/dest/path/to/tplFile.html', /^path\/to\/tplFile, tplFile$/);
+    helpers.assertFile('test/dest/fixtures/path/to/tplFile.html', /fixtures\/path\/to, tplFile/);
   });
 
   it('should create dest/sitemap.xml', function(){
     helpers.assertFile('test/dest/sitemap.xml');
+  });
+
+  it('should have a priority value of 0.8 in dest/sitemap.xml', function(){
+    helpers.assertFile('test/dest/sitemap.xml', /\<priority\>0\.8\<\/priority\>/);
   });
 
   it('should create dest/robots.txt', function(){
