@@ -9,12 +9,8 @@ module.exports = function (grunt) {
   grunt.initConfig({
     swig: {
       development: {
-        init: {
-          root: 'test/fixtures/src/'
-        },
-        dest: 'test/dest/',
-        cwd: 'test/fixtures/src/',
-        src: ['**/*.swig'],
+        dest: 'test/dest',
+        src: ['**/*.swig', '!templates/*.swig'],
         siteUrl: 'http://mydomain.net/',
         generateSitemap: true,
         generateRobotstxt: true,
