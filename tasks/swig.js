@@ -3,8 +3,8 @@
 module.exports = function(grunt) {
 
   var fs = require('fs'),
-  swig = require('swig'),
-  path = require('path');
+      swig = require('swig'),
+      path = require('path');
 
   grunt.registerMultiTask('swig', 'swig templater', function(tpl_context) {
     var config = this,
@@ -53,8 +53,6 @@ module.exports = function(grunt) {
         }
 
         tplVars.context = context;
-
-        // add tpl infos
         tplVars.tplFile = {
           path: destPath,
           basename: outputFile
@@ -66,14 +64,14 @@ module.exports = function(grunt) {
 
         if (config.data.sitemap_priorities !== undefined && config.data.sitemap_priorities[file] !== undefined) {
           pages.push({
-            url: config.data.siteUrl + file + '.html',
+            url: config.data.siteUrl + htmlFile.replace(config.data.dest + '/', ''),
             date: d,
             changefreq: 'weekly',
             priority: config.data.sitemap_priorities[file]
           });
         } else {
           pages.push({
-            url: config.data.siteUrl + file + '.html',
+            url: config.data.siteUrl + htmlFile.replace(config.data.dest + '/', ''),
             date: d,
             changefreq: 'weekly',
             priority: defaultPriority
@@ -89,7 +87,7 @@ module.exports = function(grunt) {
 
     if (generateRobotstxt) {
       grunt.log.writeln('Creating robots.txt');
-      grunt.file.write(config.data.dest + '/robots.txt', swig.renderFile(__dirname + '/../templates/robots.txt.swig', { robots_directive: config.data.robots_directive }));
+      grunt.file.write(config.data.dest + '/robots.txt', swig.renderFile(__dirname + '/../templates/robots.txt.swig', { robots_directive: config.data.robots_directive || '' }));
     }
   });
 };
