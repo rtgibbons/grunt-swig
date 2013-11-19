@@ -62,12 +62,12 @@ module.exports = function(grunt) {
 
         grunt.file.write(htmlFile, swig.renderFile(file, grunt.util._.extend(globalVars, tplVars, contextVars)));
 
-        if (config.data.sitemap_priorities !== undefined && config.data.sitemap_priorities[destPath + '/' + outputFile + '.html'] !== undefined) {
+        if (config.data.sitemap_properties !== undefined && config.data.sitemap_properties[destPath + '/' + outputFile + '.html'] !== undefined) {
           pages.push({
             url: config.data.siteUrl + htmlFile.replace(config.data.dest + '/', ''),
             date: d,
-            changefreq: 'weekly',
-            priority: config.data.sitemap_priorities[destPath + '/' + outputFile + '.html']
+            changefreq: config.data.sitemap_properties[destPath + '/' + outputFile + '.html'].changefreq || 'weekly',
+            priority: config.data.sitemap_properties[destPath + '/' + outputFile + '.html'].priority || 0.5
           });
         } else {
           pages.push({

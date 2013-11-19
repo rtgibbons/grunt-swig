@@ -29,7 +29,7 @@ swig: {
     init: {
         autoescape: true
     },
-    dest: "www/",
+    dest: 'www/',
     src: ['**/*.swig'],
     generateSitemap: true,
     generateRobotstxt: true,
@@ -38,10 +38,15 @@ swig: {
     fb_appid: '1349v',
     ga_account_id: 'UA-xxxxxxxx-1',
     robots_directive: 'Disallow /',
-    sitemap_priorities: {
-        '_DEFAULT_': '0.5',
-        'index.html': '0.8',
-        'subpage.html': '0.7'
+    sitemap_properties: {
+      '_DEFAULT_': {
+        'priority': 0.7,
+        'changefreq': 'weekly'
+      },
+      'fixtures/index.html': {
+        'priority': 0.8,
+        'changefreq': 'daily'
+      }
     }
   }
 }

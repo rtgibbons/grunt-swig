@@ -22,9 +22,15 @@ module.exports = function (grunt) {
           var1: 'long path file',
           var2: 'short path file'
         },
-        sitemap_priorities: {
-          '_DEFAULT_': '0.7',
-          'fixtures/index.html': 0.8
+        sitemap_properties: {
+          '_DEFAULT_': {
+            'priority': 0.7,
+            'changefreq': 'weekly'
+          },
+          'fixtures/index.html': {
+            'priority': 0.8,
+            'changefreq': 'daily'
+          }
         }
       }
     },
