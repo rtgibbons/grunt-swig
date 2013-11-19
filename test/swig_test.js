@@ -41,6 +41,10 @@ describe('grunt-swig', function() {
     helpers.assertFile('test/dest/sitemap.xml', /\<priority\>0\.8\<\/priority\>/);
   });
 
+  it('should have a changefreq value of daily in dest/sitemap.xml', function(){
+    helpers.assertFile('test/dest/sitemap.xml', /\<changefreq\>daily<\/changefreq\>/);
+  });
+
   it('should create dest/robots.txt', function(){
     helpers.assertFile('test/dest/robots.txt');
   });
