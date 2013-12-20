@@ -75,6 +75,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+* 2013-12-20 - v(0.2.1) Fix Issue #20, bad logic in config variables
 * 2013-11-18 - (v0.2.0) Swig 1.0 support, major refactor by [@nickpack](https://github.com/nickpack)
 * 2013-09-23 - Template basename and path added - Thanks [@polem](https://github.com/polem)!
 * 2013-06-08 - Fixed regression caused by init block addition preventing finding associated json payloads
