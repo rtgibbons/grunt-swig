@@ -13,8 +13,8 @@ module.exports = function(grunt) {
         date = new Date(),
         d = date.toISOString(),
         defaultPriority = (config.data.sitemap_priorities !== undefined)? config.data.sitemap_priorities._DEFAULT_ : '0.5',
-        generateSitemap = config.data.generateSitemap || true,
-        generateRobotstxt = config.data.generateRobotstxt || true,
+        generateSitemap = config.data.generateSitemap != undefined ? config.data.generateSitemap : true,
+        generateRobotstxt = config.data.generateRobotstxt != undefined ? config.data.generateSitemap : true,
         globalVars = {};
 
     if (config.data.init !== undefined) {
