@@ -30,6 +30,9 @@ swig: {
     },
     dest: "www/",
     src: ['**/*.swig'],
+    filters: {
+      f: 'myfilter'
+    },
     generateSitemap: true,
     generateRobotstxt: true,
     siteUrl: 'http://mydomain.net/',
@@ -69,6 +72,11 @@ You need to give the relative path to the output html file for this to work.
 
 Path and base name of the source template file are available in `tplFile` variable, `tplFile.path` for
 the path and `tplFile.basename` for the basename.
+
+The 'filters' property allows you to expose custom filters to your templates.
+In the above example the filter `f` is created and mapped to the CommonJS file
+module named `myfilter.js` at the root of the project. The module must export a
+function whose name matches the filter ('f' in this case).
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
