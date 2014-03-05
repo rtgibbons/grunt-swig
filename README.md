@@ -29,6 +29,7 @@ swig: {
         autoescape: true
     },
     dest: "www/",
+    generatedExtension: "html",
     src: ['**/*.swig'],
     generateSitemap: true,
     generateRobotstxt: true,
@@ -69,6 +70,8 @@ You need to give the relative path to the output html file for this to work.
 
 Path and base name of the source template file are available in `tplFile` variable, `tplFile.path` for
 the path and `tplFile.basename` for the basename.
+
+To override the default extension of `.html` by specifying the ```generatedExtension``` (without the period) in your config.
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
