@@ -18,6 +18,9 @@ module.exports = function (grunt) {
         siteUrl: 'http://mydomain.net/',
         generateSitemap: true,
         generateRobotstxt: true,
+        tags: {
+          countargs: require('./test/tag')
+        },
         test: {
           var1: 'long path file',
           var2: 'short path file'

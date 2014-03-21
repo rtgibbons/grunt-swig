@@ -21,6 +21,13 @@ module.exports = function(grunt) {
       swig.setDefaults(config.data.init);
     }
 
+    if (config.data.tags !== undefined) {
+      for (var tag in config.data.tags) {
+        var newTag = config.data.tags[tag];
+        swig.setTag(tag, newTag.parse, newTag.compile, newTag.ends, newTag.block);
+      }
+    }
+
     try {
       globalVars = grunt.util._.extend(config.data, grunt.file.readJSON(process.cwd() + '/global.json'));
     } catch (err) {

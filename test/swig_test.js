@@ -1,3 +1,4 @@
+/* global describe:false, it:false */
 'use strict';
 
 var assert = require('assert'),
@@ -43,6 +44,10 @@ describe('grunt-swig', function() {
 
   it('should create dest/robots.txt', function(){
     helpers.assertFile('test/dest/robots.txt');
+  });
+
+  it('should compile a custom tag', function () {
+    helpers.assertFile('test/dest/fixtures/tag.html', /args\:.*firstarg/);
   });
 
 });
