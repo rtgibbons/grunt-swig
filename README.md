@@ -76,7 +76,10 @@ the path and `tplFile.basename` for the basename.
 The 'tags' property is an object that allows you to extend swig with any tag found on
 internet with the [common structure](https://github.com/paularmstrong/swig/blob/v1.3.2/lib/tags/block.js).  
 Key, value of the object is respectively: name of the tag, library/file required.
-Value it's always a `require()`, it may be a _custom_ file of yours or another NPM library.
+Value it's always a `require()`, it may be a _custom_ file of yours or another NPM library.  
+[swig-extras](https://github.com/paularmstrong/swig-extras) and
+[swig-extensions](https://github.com/assemble/swig-extensions) tags are supported, you need to require
+directly the file, ex: `require('./node_modules/swig-extras/lib/tags/markdown')`
 
 Common structure:
 ```javascript

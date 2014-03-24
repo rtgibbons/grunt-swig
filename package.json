@@ -28,7 +28,8 @@
     "grunt": "~0.4.1",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-mocha-test": "~0.7.0",
-    "grunt-contrib-jshint": "~0.7.2"
+    "grunt-contrib-jshint": "~0.7.2",
+    "swig-extras": "0.0.1"
   },
   "peerDependencies": {
     "grunt": "~0.4.1"

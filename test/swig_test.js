@@ -50,4 +50,8 @@ describe('grunt-swig', function() {
     helpers.assertFile('test/dest/fixtures/tag.html', /args\:.*firstarg/);
   });
 
+  it('should compile a custom tag from swig-extras', function () {
+    helpers.assertFile('test/dest/fixtures/markdown.html', /a href=.http\:\/\/paularmstrong/);
+  });
+
 });

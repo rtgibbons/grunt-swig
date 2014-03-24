@@ -22,10 +22,17 @@ module.exports = function(grunt) {
     }
 
     if (config.data.tags !== undefined) {
-      for (var tag in config.data.tags) {
-        var newTag = config.data.tags[tag];
-        swig.setTag(tag, newTag.parse, newTag.compile, newTag.ends, newTag.block);
-      }
+      Object.keys(config.data.tags).forEach(function (tag, index) {
+        var tagObj = config.data.tags[tag];
+        // compatibility with swig-extentions and swig-extras
+        var block = tagObj.blockLevel !== undefined ? tagObj.blockLevel : tagObj.block;
+        // ext is an extension to the interpreter, usually exposes functionality, ex: a markdown compiler
+        // as an object in the swig context (_ctx.<objectname>)
+        if (tagObj.ext) {
+          swig.setExtension(tagObj.ext.name, tagObj.ext.obj);
+        }
+        swig.setTag(tag, tagObj.parse, tagObj.compile, tagObj.ends, block);
+      });
     }
 
     try {
