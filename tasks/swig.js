@@ -40,6 +40,10 @@ module.exports = function(grunt) {
             tplVars = {},
             contextVars = {};
 
+        if ( config.data.flattern ) {
+            htmlFile = config.data.dest + '/' + outputFile + '.html';
+        }
+
         try {
           tplVars = grunt.file.readJSON(path.dirname(file) + '/' + outputFile + ".json");
         } catch(err) {
