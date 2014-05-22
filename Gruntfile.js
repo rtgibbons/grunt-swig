@@ -26,6 +26,13 @@ module.exports = function (grunt) {
           '_DEFAULT_': '0.7',
           'fixtures/index.html': 0.8
         }
+      },
+      flattern: {
+        dest: 'test/dest',
+        src: ['test/fixtures/path/to/flatterntest.swig'],
+        flattern: true,
+        generateSitemap: false,
+        generateRobotstxt: false
       }
     },
     jshint: {

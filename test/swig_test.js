@@ -45,4 +45,8 @@ describe('grunt-swig', function() {
     helpers.assertFile('test/dest/robots.txt');
   });
 
+  it('should exist in dest/flattern/flatterntest.html', function(){
+  	helpers.assertFile('test/dest/flatterntest.html');
+  });
+
 });
