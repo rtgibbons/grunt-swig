@@ -28,12 +28,14 @@ module.exports = function(grunt) {
     }
 
     this.filesSrc.forEach(function(file) {
+      var cwd = globalVars.cwd || "";
+      var relativePath = file;
+      file = cwd + file;
       if (!grunt.file.exists(file)) {
-        grunt.log.warn('Source file "' + file.src + '" not found.');
-
+        grunt.log.warn('Source file "' + file + '" not found.');
         return false;
       } else {
-        var dirName = path.dirname(file).split('/'),
+        var dirName = path.dirname(relativePath).split('/'),
             destPath = dirName.splice(1, dirName.length).join('/'),
             outputFile = path.basename(file, path.extname(file)),
             htmlFile = config.data.dest + '/' + destPath + '/' + outputFile + '.html',
