@@ -15,6 +15,7 @@ module.exports = function(grunt) {
         defaultPriority = (config.data.sitemap_priorities !== undefined)? config.data.sitemap_priorities._DEFAULT_ : '0.5',
         generateSitemap = config.data.generateSitemap != undefined ? config.data.generateSitemap : true,
         generateRobotstxt = config.data.generateRobotstxt != undefined ? config.data.generateSitemap : true,
+        cwd = config.data.cwd,
         globalVars = {};
 
     if (config.data.init !== undefined) {
@@ -34,9 +35,9 @@ module.exports = function(grunt) {
         return false;
       } else {
         var dirName = path.dirname(file).split('/'),
-            destPath = dirName.splice(1, dirName.length).join('/'),
-            outputFile = path.basename(file, '.swig'),
-            htmlFile = config.data.dest + '/' + destPath + '/' + outputFile + '.html',
+            destPath = cwd ? path.dirname(file).replace(cwd, '') : dirName.splice(1, dirName.length).join('/'),
+            outputFile = path.basename(file).replace('.swig', '.html'),
+            htmlFile = path.join(config.data.dest, destPath, outputFile),
             tplVars = {},
             contextVars = {};
 
