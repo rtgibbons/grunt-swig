@@ -7,18 +7,34 @@ module.exports = function(grunt) {
       path = require('path'),
       imports = [];
 
-  function importSwig(method, obj){
-    for(var i in obj){
-      if(grunt.util.kindOf(obj[i]) === 'function'){
-        swig[method](i, obj[i]);
-      }
-    }
-  }
   grunt.event.on('swig_import', function(context, config){
+    var ifilter, itag, tags, obj;
     if(imports.indexOf(context) === -1){
-      if(config.swig_filters) importSwig('setFilter', config.swig_filters);
-      if(config.swig_tags) importSwig('setTag', config.swig_tags);
-      if(config.swig_extensions) importSwig('setExtension', config.swig_extensions);
+      if(config.swig_filters) {
+        for(ifilter in config.swig_filters){
+          if(grunt.util.kindOf(config.swig_filters[ifilter]) === 'function'){
+            swig.setFilter(ifilter, config.swig_filters[ifilter]);
+          }
+        }
+      }
+      if(config.swig_tags){
+        obj = config.swig_tags;
+        for(itag in obj){
+          tags = [];
+          if(obj[itag]){
+            tags.push(itag);
+            [
+              ['parse', undefined],
+              ['compile', undefined],
+              ['ends', false],
+              ['blockLevel', false]
+            ].forEach(function(value){
+                tags.push(obj[itag][value[0]] ? obj[itag][value[0]] : value[1]);
+            });
+            swig.setTag.apply(swig, tags);
+          }
+        }
+      }
       imports.push(context);
     }
   });
