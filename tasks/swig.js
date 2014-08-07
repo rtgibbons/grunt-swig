@@ -4,7 +4,24 @@ module.exports = function(grunt) {
 
   var fs = require('fs'),
       swig = require('swig'),
-      path = require('path');
+      path = require('path'),
+      imports = [];
+
+  function importSwig(method, obj){
+    for(var i in obj){
+      if(grunt.util.kindOf(obj[i]) === 'function'){
+        swig[method](i, obj[i]);
+      }
+    }
+  }
+  grunt.event.on('swig_import', function(context, config){
+    if(imports.indexOf(context) === -1){
+      if(config.swig_filters) importSwig('setFilter', config.swig_filters);
+      if(config.swig_tags) importSwig('setTag', config.swig_tags);
+      if(config.swig_extensions) importSwig('setExtension', config.swig_extensions);
+      imports.push(context);
+    }
+  });
 
   grunt.registerMultiTask('swig', 'swig templater', function(tpl_context) {
     var config = this,
@@ -18,12 +35,14 @@ module.exports = function(grunt) {
         cwd = config.data.cwd,
         globalVars = {};
 
+    grunt.event.emit("swig_import", context, config.data);
+
     if (config.data.init !== undefined) {
       swig.setDefaults(config.data.init);
     }
 
     try {
-      globalVars = grunt.util._.extend(config.data, grunt.file.readJSON(process.cwd() + '/global.json'));
+      globalVars = grunt.util._.extend(config.data, grunt.file.readJSON((cwd || process.cwd()) + '/global.json'));
     } catch (err) {
       globalVars = grunt.util._.clone(config.data);
     }
