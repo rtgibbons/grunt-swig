@@ -37,9 +37,15 @@ module.exports = function(grunt) {
             destPath = dirName.splice(1, dirName.length).join('/'),
             outputFile = path.basename(file, '.swig'),
             ext = config.data.generatedExtension ? config.data.generatedExtension : 'html',
-            htmlFile = config.data.dest + '/' + destPath + '/' + outputFile + '.' + ext,
             tplVars = {},
             contextVars = {};
+
+        var htmlFile = config.data.dest + '/' + destPath + '/' + outputFile + '.' + ext;
+
+        // Allow override of output directory to not include subpaths
+        if(config.data.expandDirectories === false) {
+            htmlFile = config.data.dest + '/' + outputFile + '.' + ext;
+        }
 
         try {
           tplVars = grunt.file.readJSON(path.dirname(file) + '/' + outputFile + ".json");
