@@ -2,6 +2,14 @@
 
 > A static site compiler for grunt based on [swig templates](http://paularmstrong.github.com/swig/)
 
+## Call for Help
+
+As time has passed, I haven't had a need to use this beyond the initial creation of the task. I've tried to keep up with it, but I no longer have the time to bug fix and verify the pull requests. If you are interested in helping out, get some pull requests coming in and let me know you are interested in maintaining this package.
+
+The only thing I want to verify before I give out access is the code is somewhat clean, and the tests are are there.
+
+Thanks!
+
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
 
