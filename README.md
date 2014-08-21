@@ -37,6 +37,7 @@ swig: {
         autoescape: true
     },
     dest: "www/",
+    expandDirectories: true,
     generatedExtension: "html",
     src: ['**/*.swig'],
     generateSitemap: true,
@@ -80,6 +81,8 @@ Path and base name of the source template file are available in `tplFile` variab
 the path and `tplFile.basename` for the basename.
 
 To override the default extension of `.html` by specifying the ```generatedExtension``` (without the period) in your config.
+
+To write your files directly to the specified `dest` directory and not have it expand the subdirectory path, set ```expandDirectories``` to ```false```.
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
