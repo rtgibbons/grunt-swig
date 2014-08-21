@@ -1,2 +1,2 @@
 User-agent: *
-{{ robots_directive }}
+{{ robotsDirective }}

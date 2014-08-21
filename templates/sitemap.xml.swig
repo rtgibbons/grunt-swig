@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-	{%- for page in pages %}
+	{% for page in pages %}
 	<url>
 		<loc>{{ page.url }}</loc>
-		{%- if page.date %}
-		<lastmod>{{ page.date  }}</lastmod>
-		{%- endif %}
-		{%- if page.changefreq %}
+		{% if page.date %}
+		<lastmod>{{ page.lastmod  }}</lastmod>
+		{% endif %}
+		{% if page.changefreq %}
 		<changefreq>{{ page.changefreq }}</changefreq>
-		{%- endif %}
-		{%- if page.priority %}
+		{% endif %}
+		{% if page.priority %}
 		<priority>{{ page.priority }}</priority>
-		{%- endif %}
+		{% endif %}
 	</url>
-	{%- endfor %}
+	{% endfor %}
 </urlset>
