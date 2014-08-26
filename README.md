@@ -2,6 +2,14 @@
 
 > A static site compiler for grunt based on [swig templates](http://paularmstrong.github.com/swig/)
 
+## Version 1.0.0
+
+This branch will serve as the integration point for the next release: v1.0.0.
+
+[Check out the discussion of v1.0.0 features](https://github.com/rtgibbons/grunt-swig/issues/33)
+
+The latest stable release is [v0.2.1](https://github.com/rtgibbons/grunt-swig/tree/master) which can be found in the master branch
+
 ## Call for Help
 
 As time has passed, I haven't had a need to use this beyond the initial creation of the task. I've tried to keep up with it, but I no longer have the time to bug fix and verify the pull requests. If you are interested in helping out, get some pull requests coming in and let me know you are interested in maintaining this package.
