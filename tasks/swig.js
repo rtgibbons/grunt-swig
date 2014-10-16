@@ -35,10 +35,12 @@ module.exports = function(grunt) {
         grunt.log.warn('Source file "' + file + '" not found.');
         return false;
       } else {
+        var ext = config.data.ext;
+        if(!ext){ext = path.extname(file);}
         var dirName = path.dirname(relativePath).split('/'),
             destPath = dirName.splice(1, dirName.length).join('/'),
             outputFile = path.basename(file, path.extname(file)),
-            htmlFile = config.data.dest + '/' + destPath + '/' + outputFile + '.html',
+            htmlFile = config.data.dest + '/' + destPath + '/' + outputFile + ext,
             tplVars = {},
             contextVars = {};
 
