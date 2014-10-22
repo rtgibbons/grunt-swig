@@ -1,6 +1,6 @@
 {
   "name": "grunt-swig",
-  "version": "1.0.0-rc1",
+  "version": "0.9.0",
   "description": "Static site compiler built around swig",
   "repository": {
     "type": "git",

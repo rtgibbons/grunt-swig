@@ -11,7 +11,6 @@ module.exports = function(grunt) {
             d = date.toISOString(),
             globalVars = {};
 
-
         var options = config.options();
 
         if(options.swigOptions) {
