@@ -5,12 +5,11 @@ var path = require('path');
 
 module.exports = function(grunt) {
     grunt.registerMultiTask('swig', 'swig templater', function(tpl_context) {
-        var config = this,
-            var context = tpl_context || '';
+        var config = this;
+        var context = tpl_context || '';
         var date = new Date();
         var d = date.toISOString();
         var globalVars = {};
-
         var options = config.options();
 
         if (options.swigOptions) {
@@ -18,10 +17,13 @@ module.exports = function(grunt) {
         }
 
         var pages = {};
-        var globalTemplateData = options.templateData || {};
+
+
         var baseUrl = options.siteUrl || '';
 
         config.filesSrc.forEach(function(file) {
+            var globalTemplateData = options.templateData || {};
+
             if (!file) {
                 grunt.log.warn('Source file not found.');
             } else {
@@ -58,7 +60,8 @@ module.exports = function(grunt) {
                         } catch (e) {
                             grunt.log.warn('No json file corresponding with: ' + file + '.  Using only global template data.');
                         }
-                        pages[outputFile].templateData = grunt.util._.extend(globalTemplateData, templateData);
+                        pages[outputFile].templateData = {};
+                        grunt.util._.extend(pages[outputFile].templateData, globalTemplateData, templateData);
                         pages[outputFile].tpl = tpl;
                         pages[outputFile].date = d;
                         pages[outputFile].url = baseUrl + outputFile;

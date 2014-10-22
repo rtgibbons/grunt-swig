@@ -40,53 +40,63 @@ In your project's Gruntfile, add a section named `swig` to the data object passe
 
 ```js
 swig: {
-  development: {
-    init: {
-        autoescape: true
+    // The default options.  If the task does not specify an 'options' object, this will be used instead.  Or it can be omitted entirely.
+    options: {
+        generateSitemap: false,
+        templateData: {
+            greeting: "Hello Default Greeting!"
+        },
+	},
+	dev: {
+        options: {
+            generateSitemap: true, // Whether or not to generate a sitemap
+			siteUrl: 'http://mydomaindev.net/', // Used when sitemap is generated
+			templateData: {
+				greeting: "Hello overridden Greeting!",
+                myVar: "some other variable"
+			},
+            // The sitemap weightings.  If omitted, the default will be used
+			sitemap: {
+				'default': { // Override the default sitemap options.  This will be used if the specific file is not specified.
+					changefreq: 'never',
+					lastmod: '2013-01-01',
+					priority: '0.5'
+				},
+				'index.html': {
+					changefreq: 'daily',
+					lastmod: '2009-01-01',
+					priority: '0.8'
+				},
+				'test/index.html': {
+					changefreq: 'monthly',
+					priority: '0.4'
+				}
+			},
+			swigOptions: { // Options to pass in to swig
+                cache: false
+			}
+        },
+        src: ['**/*.swig'], // The pattern to search for files
+        dest: 'www/' // The destination directory path where the generated files will be placed
     },
-    dest: "www/",
-    expandDirectories: true,
-    generatedExtension: "html",
-    src: ['**/*.swig'],
-    generateSitemap: true,
-    generateRobotstxt: true,
-    siteUrl: 'http://mydomain.net/',
-    production: false,
-    fb_appid: '1349v',
-    ga_account_id: 'UA-xxxxxxxx-1',
-    robots_directive: 'Disallow /',
-    sitemap_priorities: {
-        '_DEFAULT_': '0.5',
-        'index.html': '0.8',
-        'subpage.html': '0.7'
+	prod: {
+        src: ['src-prod/**/*.swig'],
+        dest: 'www-prod/'
     }
-  }
 }
 ```
 
-Grunt Swig will loop through files listed in `src`
+Grunt Swig will loop through files listed in ```src```
 
-Ex. `source/index.swig`. It will look for a `source/index.json` and add it to
-the rest of the variables provided in `swig:development` or in `global.js`, and then run swig
-against `source/index.swig` saving the output to `www/index.html`
+__Note: Only files ending with ```.swig``` will be processed__
 
-You can also provide context, for example `swig:development:blue` which will
-perform the same actions above, but after process the JSON it will also expand
-the variable list with `source/index.blue.json` and provide the variable
-`context` to the rest of the swig template.
+Your file extension is specified within your filename.  For example:
 
-The siteUrl is used to build a sitemap. Right now all the other elements are
-hard coded, eventually this could be set in the config object.
+```index.html.swig``` will generate the file ```index.html```
 
-The 'sitemap_priorities' will set custom priorities based on the page name when
-building the sitemap.  The first item '_DEFAULT_' will be the default priority
-used if a page name is not explicitly set.  In the above example the page
-'index.html' would be given priority of '0.8', 'subpage.html' would be given
-a priority of '0.7', and all other pages would get a priority of '0.5',
-You need to give the relative path to the output html file for this to work.
+```myFile.txt.swig``` will generate the file ```myFile.txt```
 
-Path and base name of the source template file are available in `tplFile` variable, `tplFile.path` for
-the path and `tplFile.basename` for the basename.
+The siteUrl is used to build a sitemap. You can adjust the defaults for each file/page in the options.
 
 To override the default extension of `.html` by specifying the ```generatedExtension``` (without the period) in your config.
 
