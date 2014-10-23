@@ -1,0 +1,16 @@
+swig: {
+    options {
+        generateSitemap: true
+    },
+    dev: {
+        options{
+            generateSitemap: false
+        },
+        src: [**/*.swig],
+        dest: 'www/'
+    },
+    prod: {
+        src: [**/*.swig],
+        dest: 'www/'
+    }
+}

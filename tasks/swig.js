@@ -1,93 +1,109 @@
 'use strict';
+var fs = require('fs');
+var swig = require('swig');
+var path = require('path');
 
 module.exports = function(grunt) {
+    grunt.registerMultiTask('swig', 'swig templater', function(tpl_context) {
+        var config = this;
+        var context = tpl_context || '';
+        var date = new Date();
+        var d = date.toISOString();
+        var globalVars = {};
+        var options = config.options();
 
-  var fs = require('fs'),
-      swig = require('swig'),
-      path = require('path');
-
-  grunt.registerMultiTask('swig', 'swig templater', function(tpl_context) {
-    var config = this,
-        context = tpl_context || '',
-        pages = [],
-        date = new Date(),
-        d = date.toISOString(),
-        defaultPriority = (config.data.sitemap_priorities !== undefined)? config.data.sitemap_priorities._DEFAULT_ : '0.5',
-        generateSitemap = config.data.generateSitemap != undefined ? config.data.generateSitemap : true,
-        generateRobotstxt = config.data.generateRobotstxt != undefined ? config.data.generateSitemap : true,
-        globalVars = {};
-
-    if (config.data.init !== undefined) {
-      swig.setDefaults(config.data.init);
-    }
-
-    try {
-      globalVars = grunt.util._.extend(config.data, grunt.file.readJSON(process.cwd() + '/global.json'));
-    } catch (err) {
-      globalVars = grunt.util._.clone(config.data);
-    }
-
-    this.filesSrc.forEach(function(file) {
-      if (!grunt.file.exists(file)) {
-        grunt.log.warn('Source file "' + file.src + '" not found.');
-
-        return false;
-      } else {
-        var dirName = path.dirname(file).split('/'),
-            destPath = dirName.splice(1, dirName.length).join('/'),
-            outputFile = path.basename(file, '.swig'),
-            htmlFile = config.data.dest + '/' + destPath + '/' + outputFile + '.html',
-            tplVars = {},
-            contextVars = {};
-
-        try {
-          tplVars = grunt.file.readJSON(path.dirname(file) + '/' + outputFile + ".json");
-        } catch(err) {
-          tplVars = {};
+        if (options.swigOptions) {
+            swig.setDefaults(options.swigOptions);
         }
 
-        try {
-          contextVars = grunt.file.readJSON(path.dirname(file) + '/' + outputFile + "." + context + ".json");
-        } catch(err) {
-          contextVars = {};
+        var pages = {};
+
+
+        var baseUrl = options.siteUrl || '';
+
+        config.filesSrc.forEach(function(file) {
+            var globalTemplateData = options.templateData || {};
+
+            if (!file) {
+                grunt.log.warn('Source file not found.');
+            } else {
+
+                var tpl = swig.compileFile(file);
+                var filePathArr = file.split('/');
+                var fullFileName = filePathArr[filePathArr.length - 1];
+                var matches = fullFileName.match(/(.*)\.([^\.]*)\.?([^\.]*)$/);
+
+                if (matches && matches[1] && matches[2]) {
+                    var fileName = matches[1];
+                    var ext = matches[2];
+                    var templateExtension = matches[3];
+                    if (!templateExtension) {
+                        templateExtension = ext;
+                        ext = '';
+                    } else {
+                        ext = '.' + ext
+                    }
+
+                    var relativeOutputFile = path.dirname(file) + '/' + fileName + ext;
+                    var outputFile = config.data.dest + relativeOutputFile;
+
+                    // Only process files that end in .swig
+                    if (templateExtension == 'swig') {
+                        // Swig file match.  Build up all the data required to create the destination file.
+                        pages[outputFile] = pages[outputFile] || {};
+                        pages[outputFile].src = fullFileName;
+                        pages[outputFile].dest = outputFile;
+
+                        var templateData = {};
+                        try {
+                            templateData = grunt.file.readJSON(path.dirname(file) + '/' + fileName + ext + '.json');
+                        } catch (e) {
+                            grunt.log.warn('No json file corresponding with: ' + file + '.  Using only global template data.');
+                        }
+                        pages[outputFile].templateData = {};
+                        grunt.util._.extend(pages[outputFile].templateData, globalTemplateData, templateData);
+                        pages[outputFile].tpl = tpl;
+                        pages[outputFile].date = d;
+                        pages[outputFile].url = baseUrl + outputFile;
+
+                        // Base sitemap defaults
+                        pages[outputFile].changefreq = 'daily';
+                        pages[outputFile].lastmod = d;
+                        pages[outputFile].priority = '0.8';
+
+                        // Check if this file has specific sitemap properties set
+                        if (options.sitemap && options.sitemap[relativeOutputFile]) {
+                            pages[outputFile].changefreq = options.sitemap[relativeOutputFile].changefreq || pages[outputFile].changefreq;
+                            pages[outputFile].lastmod = options.sitemap[relativeOutputFile].lastmod || pages[outputFile].lastmod;
+                            pages[outputFile].priority = options.sitemap[relativeOutputFile].priority || pages[outputFile].priority;
+                        } else if (options.sitemap && options.sitemap.default) {
+                            // If not, check to see if there are defaults
+                            pages[outputFile].changefreq = options.sitemap.default.changefreq || pages[outputFile].changefreq;
+                            pages[outputFile].lastmod = options.sitemap.default.lastmod || pages[outputFile].lastmod;
+                            pages[outputFile].priority = options.sitemap.default.priority || pages[outputFile].priority;
+                        }
+                    }
+                } else {
+                    grunt.log.warn('Unable to process file as template: ' + fullFileName);
+                }
+            }
+        });
+
+        for (var i in pages) {
+            var page = pages[i];
+            grunt.log.writeln('Creating file: ' + page.dest);
+            grunt.file.write(page.dest, page.tpl(page.templateData));
         }
 
-        tplVars.context = context;
-        tplVars.tplFile = {
-          path: destPath,
-          basename: outputFile
-        };
+        if (options.generateSitemap) {
+            var currentDate = date.toISOString();
 
-        grunt.log.writeln('Writing HTML to ' + htmlFile);
-
-        grunt.file.write(htmlFile, swig.renderFile(file, grunt.util._.extend(globalVars, tplVars, contextVars)));
-
-        if (config.data.sitemap_priorities !== undefined && config.data.sitemap_priorities[destPath + '/' + outputFile + '.html'] !== undefined) {
-          pages.push({
-            url: config.data.siteUrl + htmlFile.replace(config.data.dest + '/', ''),
-            date: d,
-            changefreq: 'weekly',
-            priority: config.data.sitemap_priorities[destPath + '/' + outputFile + '.html']
-          });
-        } else {
-          pages.push({
-            url: config.data.siteUrl + htmlFile.replace(config.data.dest + '/', ''),
-            date: d,
-            changefreq: 'weekly',
-            priority: defaultPriority
-          });
+            grunt.log.writeln('Creating sitemap.xml');
+            var sitemapData = options.sitemap || {};
+            grunt.file.write(config.data.dest + '/sitemap.xml', swig.renderFile(__dirname + '/../templates/sitemap.xml.swig', {
+                sitemapData: sitemapData,
+                pages: pages
+            }));
         }
-      }
     });
-
-    if (generateSitemap) {
-      grunt.log.writeln('Creating sitemap.xml');
-      grunt.file.write(config.data.dest + '/sitemap.xml', swig.renderFile(__dirname + '/../templates/sitemap.xml.swig', { pages: pages}));
-    }
-
-    if (generateRobotstxt) {
-      grunt.log.writeln('Creating robots.txt');
-      grunt.file.write(config.data.dest + '/robots.txt', swig.renderFile(__dirname + '/../templates/robots.txt.swig', { robots_directive: config.data.robots_directive || '' }));
-    }
-  });
 };
