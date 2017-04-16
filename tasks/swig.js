@@ -36,7 +36,8 @@ module.exports = function(grunt) {
         var dirName = path.dirname(file).split('/'),
             destPath = dirName.splice(1, dirName.length).join('/'),
             outputFile = path.basename(file, '.swig'),
-            htmlFile = config.data.dest + '/' + destPath + '/' + outputFile + '.html',
+            ext = config.data.generatedExtension ? config.data.generatedExtension : 'html',
+            htmlFile = config.data.dest + '/' + destPath + '/' + outputFile + '.' + ext,
             tplVars = {},
             contextVars = {};
 
