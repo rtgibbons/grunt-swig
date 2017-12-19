@@ -2,6 +2,10 @@
 
 > A static site compiler for grunt based on [swig templates](http://paularmstrong.github.com/swig/)
 
+Features being worked on:
+[support for flat trees](https://github.com/rtgibbons/grunt-swig/tree/flat-trees)
+[testing and rewrite](https://github.com/rtgibbons/grunt-swig/tree/proposed-updates-ken)
+
 ## Call for Help
 
 As time has passed, I haven't had a need to use this beyond the initial creation of the task. I've tried to keep up with it, but I no longer have the time to bug fix and verify the pull requests. If you are interested in helping out, get some pull requests coming in and let me know you are interested in maintaining this package.
