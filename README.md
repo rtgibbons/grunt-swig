@@ -38,6 +38,7 @@ swig: {
     },
     dest: "www/",
     src: ['**/*.swig'],
+    flattern: false,
     generateSitemap: true,
     generateRobotstxt: true,
     siteUrl: 'http://mydomain.net/',
@@ -77,6 +78,9 @@ You need to give the relative path to the output html file for this to work.
 
 Path and base name of the source template file are available in `tplFile` variable, `tplFile.path` for
 the path and `tplFile.basename` for the basename.
+
+The `flattern` flag will just place the compiled swig files inside `dest` directory without using
+directory tree as it was in `src` folder.
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
