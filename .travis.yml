@@ -3,3 +3,8 @@ node_js:
   - "0.10"
 before_script:
   - npm install -g grunt-cli
+notifications:
+  email:
+    - adam@revolutionarysystems.co.uk
+    - andrew@revolutionarysystems.co.uk
+    - ci@revolutionarysystems.co.uk
