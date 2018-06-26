@@ -21,6 +21,13 @@ module.exports = function(grunt) {
       swig.setDefaults(config.data.init);
     }
 
+    if (config.data.filters !== undefined) {
+      for (var filter in config.data.filters) {
+        var module = path.resolve(process.cwd() + '/' + config.data.filters[filter]);
+        swig.setFilter(filter, require(module)[filter]);
+      }
+    }
+
     try {
       globalVars = grunt.util._.extend(config.data, grunt.file.readJSON(process.cwd() + '/global.json'));
     } catch (err) {
@@ -35,7 +42,7 @@ module.exports = function(grunt) {
       } else {
         var dirName = path.dirname(file).split('/'),
             destPath = dirName.splice(1, dirName.length).join('/'),
-            outputFile = path.basename(file, '.swig'),
+            outputFile = path.basename(file, path.extname(file)),
             htmlFile = config.data.dest + '/' + destPath + '/' + outputFile + '.html',
             tplVars = {},
             contextVars = {};

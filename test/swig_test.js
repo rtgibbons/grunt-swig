@@ -33,6 +33,10 @@ describe('grunt-swig', function() {
     helpers.assertFile('test/dest/fixtures/path/to/tplFile.html', /fixtures\/path\/to, tplFile/);
   });
 
+  it('should create dest/fixtures/filter.html', function(){
+    helpers.assertFile('test/dest/fixtures/filter.html', /^Hello filter/);
+  });
+
   it('should create dest/sitemap.xml', function(){
     helpers.assertFile('test/dest/sitemap.xml');
   });

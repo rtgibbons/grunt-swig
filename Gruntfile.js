@@ -22,6 +22,9 @@ module.exports = function (grunt) {
           var1: 'long path file',
           var2: 'short path file'
         },
+        filters: {
+          f: 'test/filter'
+        },
         sitemap_priorities: {
           '_DEFAULT_': '0.7',
           'fixtures/index.html': 0.8
