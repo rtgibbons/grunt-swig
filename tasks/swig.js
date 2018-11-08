@@ -21,6 +21,20 @@ module.exports = function(grunt) {
       swig.setDefaults(config.data.init);
     }
 
+    if (config.data.tags !== undefined) {
+      Object.keys(config.data.tags).forEach(function (tag, index) {
+        var tagObj = config.data.tags[tag];
+        // compatibility with swig-extentions and swig-extras
+        var block = tagObj.blockLevel !== undefined ? tagObj.blockLevel : tagObj.block;
+        // ext is an extension to the interpreter, usually exposes functionality, ex: a markdown compiler
+        // as an object in the swig context (_ctx.<objectname>)
+        if (tagObj.ext) {
+          swig.setExtension(tagObj.ext.name, tagObj.ext.obj);
+        }
+        swig.setTag(tag, tagObj.parse, tagObj.compile, tagObj.ends, block);
+      });
+    }
+
     try {
       globalVars = grunt.util._.extend(config.data, grunt.file.readJSON(process.cwd() + '/global.json'));
     } catch (err) {

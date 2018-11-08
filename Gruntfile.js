@@ -18,6 +18,10 @@ module.exports = function (grunt) {
         siteUrl: 'http://mydomain.net/',
         generateSitemap: true,
         generateRobotstxt: true,
+        tags: {
+          countargs: require('./test/tag'),
+          markdown: require('./node_modules/swig-extras/lib/tags/markdown')
+        },
         test: {
           var1: 'long path file',
           var2: 'short path file'

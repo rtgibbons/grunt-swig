@@ -40,6 +40,9 @@ swig: {
     init: {
         autoescape: true
     },
+    tags: {
+        countargs: require('./test/tag')
+    },
     dest: "www/",
     src: ['**/*.swig'],
     generateSitemap: true,
@@ -81,6 +84,28 @@ You need to give the relative path to the output html file for this to work.
 
 Path and base name of the source template file are available in `tplFile` variable, `tplFile.path` for
 the path and `tplFile.basename` for the basename.
+
+The 'tags' property is an object that allows you to extend swig with any tag found on
+internet with the [common structure](https://github.com/paularmstrong/swig/blob/v1.3.2/lib/tags/block.js).  
+Key, value of the object is respectively: name of the tag, library/file required.
+Value it's always a `require()`, it may be a _custom_ file of yours or another NPM library.  
+[swig-extras](https://github.com/paularmstrong/swig-extras) and
+[swig-extensions](https://github.com/assemble/swig-extensions) tags are supported, you need to require
+directly the file, ex: `require('./node_modules/swig-extras/lib/tags/markdown')`
+
+Common structure:
+```javascript
+  exports.parse = function(str, line, parser, types, stack, options)
+  exports.compile = function(compiler, args, content, parents, options, blockName)
+  exports.ends = true/false
+  exports.block = true/false
+```
+Refer to [official Swig documentation](http://paularmstrong.github.io/swig/docs/extending/#tags).
+
+The 'filters' property allows you to expose custom filters to your templates.
+In the above example the filter `f` is created and mapped to the CommonJS file
+module named `myfilter.js` at the root of the project. The module must export a
+function whose name matches the filter ('f' in this case).
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
