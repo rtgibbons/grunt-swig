@@ -38,7 +38,8 @@ module.exports = function(grunt) {
             outputFile = path.basename(file, '.swig'),
             htmlFile = config.data.dest + '/' + destPath + '/' + outputFile + '.html',
             tplVars = {},
-            contextVars = {};
+            contextVars = {},
+            options = {};
 
         try {
           tplVars = grunt.file.readJSON(path.dirname(file) + '/' + outputFile + ".json");
@@ -60,7 +61,8 @@ module.exports = function(grunt) {
 
         grunt.log.writeln('Writing HTML to ' + htmlFile);
 
-        grunt.file.write(htmlFile, swig.renderFile(file, grunt.util._.extend(globalVars, tplVars, contextVars)));
+        grunt.util._.extend(options, globalVars, tplVars, contextVars);
+        grunt.file.write(htmlFile, swig.renderFile(file, options));
 
         if (config.data.sitemap_priorities !== undefined && config.data.sitemap_priorities[destPath + '/' + outputFile + '.html'] !== undefined) {
           pages.push({
